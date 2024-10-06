@@ -2,54 +2,44 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
-const tools = require('./tools')
+
 app.set('view engine', 'hbs');
-//app.use(express.urlencoded({ extended: true }));
+
+// Middleware do parsowania danych z formularza
 app.use(bodyParser.urlencoded({ extended: true }));
 
-req = express.request;
-res = express.response;
 app.get('/', (req, res) => {
-
     res.redirect('kontakt');
     console.log('Redirecting to Kontakt page');
-})
+});
 
-app.post('/kontakt', (req, res) => {
-    // const { pole1, pole2, imie, nazwisko } = req.body;
-    const pole1 = req.bodyParser;
-    const pole2 = req.bodyParser;
-    const imie = req.bodyParser;
-    const nazwisko = req.bodyParser;
-    const wiek = req.bodyParser;
-    res.send(pole1, pole2, imie, nazwisko, wiek);
-    app.get('/form', (req, res) => {
-        res.render('/form', {
-            content: `Witaj, ${imie} ${nazwisko}`,
-            wiek: `Urodziłeś się ${wiek}`,
-        })
-        // litery: `Pole 1: ${pole1} ma ${iloscLiter1} liter, pole 2: ${pole2} ma ${iloscLiter2}`
-
-    })
-
-
-})
-
+// Strona z formularzem kontaktowym
 app.get('/kontakt', (req, res) => {
     res.render('kontakt', {
         title: "Strona kontakt",
-    })
+    });
+});
 
-    // app.get('/form', (req, res) => {
-    //     req.render('/form', {
-    //         content: `Witaj, ${imie} ${nazwisko}`,
-    //         wiek: `Urodziłeś się ${wiek}`,
-    //         litery: `Pole 1: ${pole1} ma ${iloscLiter1} liter, pole 2: ${pole2} ma ${iloscLiter2}`
+// Odbieranie danych z formularza
+app.post('/kontakt', (req, res) => {
+    const { pole1, pole2, imie, nazwisko, wiek } = req.body;
 
-    //     })
+    // Przekierowanie na stronę /form z danymi z formularza
+    res.redirect(`/form?pole1=${pole1}&pole2=${pole2}&imie=${imie}&nazwisko=${nazwisko}&wiek=${wiek}`);
+});
 
-    // })
-})
+// Strona, która wyświetla przesłane dane
+app.get('/form', (req, res) => {
+    const { pole1, pole2, imie, nazwisko, wiek } = req.query;
 
+    // Wyświetlenie danych z formularza
+    res.render('form', {
+        content: `Witaj, ${imie} ${nazwisko}`,
+        wiek: `Urodziłeś się w roku ${wiek}`,
+        litery: `Pole 1: ${pole1} ma ${pole1.length} liter, pole 2: ${pole2} ma ${pole2.length} liter`
+    });
+});
 
-app.listen(port);
+app.listen(port, () => {
+    console.log(`Serwer działa na porcie ${port}`);
+});
