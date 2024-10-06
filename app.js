@@ -12,22 +12,26 @@ res = express.response;
 app.get('/', (req, res) => {
 
     res.redirect('kontakt');
-    console.log('Redirecting to kontakt page');
+    console.log('Redirecting to Kontakt page');
 })
 
 app.post('/kontakt', (req, res) => {
-    const { pole1, pole2 } = req.body;
-    const iloscLiter1 = tools.litery(pole1);
-    const iloscLiter2 = tools.litery(pole2);
-    const { imie, nazwisko, wiek } = req.body
-    res.render('kontakt', {
-        title: "Strona kontakt",
-        content: `Witaj, ${imie} ${nazwisko}`,
-        wiek: `Urodziłeś się ${wiek}`,
-        litery: `Pole 1: ${pole1} ma ${iloscLiter1} liter, pole 2: ${pole2} ma ${iloscLiter2}`
-    });
+    // const { pole1, pole2, imie, nazwisko } = req.body;
+    const pole1 = req.bodyParser;
+    const pole2 = req.bodyParser;
+    const imie = req.bodyParser;
+    const nazwisko = req.bodyParser;
+    const wiek = req.bodyParser;
+    res.send(pole1, pole2, imie, nazwisko, wiek);
+    app.get('/form', (req, res) => {
+        res.render('/form', {
+            content: `Witaj, ${imie} ${nazwisko}`,
+            wiek: `Urodziłeś się ${wiek}`,
+        })
+        // litery: `Pole 1: ${pole1} ma ${iloscLiter1} liter, pole 2: ${pole2} ma ${iloscLiter2}`
 
-    // res.send(`Pole 1: ${pole1} ma ${iloscLiter1} liter, Pole 2: ${pole2} ma ${iloscLiter2}`)
+    })
+
 
 })
 
@@ -35,6 +39,17 @@ app.get('/kontakt', (req, res) => {
     res.render('kontakt', {
         title: "Strona kontakt",
     })
+
+    // app.get('/form', (req, res) => {
+    //     req.render('/form', {
+    //         content: `Witaj, ${imie} ${nazwisko}`,
+    //         wiek: `Urodziłeś się ${wiek}`,
+    //         litery: `Pole 1: ${pole1} ma ${iloscLiter1} liter, pole 2: ${pole2} ma ${iloscLiter2}`
+
+    //     })
+
+    // })
 })
+
 
 app.listen(port);
