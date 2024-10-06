@@ -1,0 +1,60 @@
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        form {
+            padding: 10px;
+            margin: auto;
+            max-width: fit-content;
+            display: flex;
+            flex-direction: column;
+        }
+
+        button {
+            margin: 5px;
+        }
+
+        div {
+            max-width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            color: rebeccapurple;
+            font-size: 30px;
+            font-weight: 300;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{title}}</h1>
+    <p>{{description}}</p>
+    <form action="/kontakt" method="POST">
+        <label for="pole1">pole1</label>
+        <input type="text" name="pole1" id="pole1">
+        <label for="pole2">pole1</label>
+        <input type="text" name="pole2" id="pole2">
+        <label for="pole2">Imię</label>
+        <input type="text" name="imie" id="imie">
+        <label for="pole2">Nazwisko</label>
+        <input type="text" name="nazwisko" id="nazwisko">
+        <label for="pole2">Data urodzenia</label>
+        <input type="date" name="wiek" id="wiek">
+        <button type="submit">Wyślij</button>
+    </form>
+    <div>
+        <p>{{content}}</p>
+        <p>{{wiek}}</p>
+        <p>{{litery}}</p>
+
+    </div>
+
+</body>
+
+</html>
